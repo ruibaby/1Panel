@@ -468,7 +468,7 @@
 </template>
 
 <script setup lang="ts">
-import { nextTick, onMounted, reactive, ref, computed } from '@vue/runtime-core';
+import { nextTick, onMounted, reactive, ref, computed } from 'vue';
 import {
     GetFilesList,
     GetFileContent,
