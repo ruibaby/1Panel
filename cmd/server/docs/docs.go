@@ -20,42 +20,6 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/apps/:key": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    },
-                    {
-                        "Timestamp": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "tags": [
-                    "App"
-                ],
-                "summary": "Search app by key",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "app key",
-                        "name": "key",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/response.AppDTO"
-                        }
-                    }
-                }
-            }
-        },
         "/apps/checkupdate": {
             "get": {
                 "security": [
@@ -77,7 +41,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/apps/detail/:appId/:version/:type": {
+        "/apps/detail/{appId}/{version}/{type}": {
             "get": {
                 "security": [
                     {
@@ -112,7 +76,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "app type",
-                        "name": "version",
+                        "name": "type",
                         "in": "path",
                         "required": true
                     }
@@ -127,7 +91,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/apps/details/:id": {
+        "/apps/details/{id}": {
             "get": {
                 "security": [
                     {
@@ -148,7 +112,7 @@ const docTemplate = `{
                     {
                         "type": "integer",
                         "description": "id",
-                        "name": "appId",
+                        "name": "id",
                         "in": "path",
                         "required": true
                     }
@@ -313,7 +277,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/apps/installed/conninfo/:key": {
+        "/apps/installed/conninfo/{key}": {
             "get": {
                 "security": [
                     {
@@ -339,6 +303,13 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/dto.OperationWithNameAndType"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "key",
+                        "name": "key",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -351,7 +322,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/apps/installed/delete/check/:appInstallId": {
+        "/apps/installed/delete/check/{appInstallId}": {
             "get": {
                 "security": [
                     {
@@ -572,42 +543,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/apps/installed/params/:appInstallId": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    },
-                    {
-                        "Timestamp": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "tags": [
-                    "App"
-                ],
-                "summary": "Search params by appInstallId",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "request",
-                        "name": "appInstallId",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/response.AppParam"
-                        }
-                    }
-                }
-            }
-        },
         "/apps/installed/params/update": {
             "post": {
                 "security": [
@@ -649,6 +584,42 @@ const docTemplate = `{
                     "formatEN": "Application param update [installId]",
                     "formatZH": "应用参数修改 [installId]",
                     "paramKeys": []
+                }
+            }
+        },
+        "/apps/installed/params/{appInstallId}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Timestamp": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "App"
+                ],
+                "summary": "Search params by appInstallId",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "request",
+                        "name": "appInstallId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.AppParam"
+                        }
+                    }
                 }
             }
         },
@@ -778,15 +749,6 @@ const docTemplate = `{
                     "App"
                 ],
                 "summary": "Search app update version by install id",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "request",
-                        "name": "appInstallId",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -835,7 +797,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/apps/services/:key": {
+        "/apps/services/{key}": {
             "get": {
                 "security": [
                     {
@@ -899,6 +861,42 @@ const docTemplate = `{
                     "formatEN": "App store synchronization",
                     "formatZH": "应用商店同步",
                     "paramKeys": []
+                }
+            }
+        },
+        "/apps/{key}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Timestamp": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "App"
+                ],
+                "summary": "Search app by key",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "app key",
+                        "name": "key",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.AppDTO"
+                        }
+                    }
                 }
             }
         },
@@ -1333,7 +1331,11 @@ const docTemplate = `{
                         "in": "query"
                     }
                 ],
-                "responses": {}
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
             }
         },
         "/containers/compose/test": {
@@ -1664,7 +1666,11 @@ const docTemplate = `{
                         }
                     }
                 ],
-                "responses": {}
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
             }
         },
         "/containers/image": {
@@ -3029,10 +3035,14 @@ const docTemplate = `{
                         "in": "query"
                     }
                 ],
-                "responses": {}
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
             }
         },
-        "/containers/stats/:id": {
+        "/containers/stats/{id}": {
             "get": {
                 "security": [
                     {
@@ -4009,7 +4019,34 @@ const docTemplate = `{
                 }
             }
         },
-        "/dashboard/base/:ioOption/:netOption": {
+        "/dashboard/base/os": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Timestamp": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dashboard"
+                ],
+                "summary": "Load os info",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.OsInfo"
+                        }
+                    }
+                }
+            }
+        },
+        "/dashboard/base/{ioOption}/{netOption}": {
             "get": {
                 "security": [
                     {
@@ -4047,33 +4084,6 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/dto.DashboardBase"
-                        }
-                    }
-                }
-            }
-        },
-        "/dashboard/base/os": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    },
-                    {
-                        "Timestamp": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Dashboard"
-                ],
-                "summary": "Load os info",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/dto.OsInfo"
                         }
                     }
                 }
@@ -4117,7 +4127,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/dashboard/system/restart/:operation": {
+        "/dashboard/system/restart/{operation}": {
             "post": {
                 "security": [
                     {
@@ -4508,30 +4518,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/databases/db/:name": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    },
-                    {
-                        "Timestamp": []
-                    }
-                ],
-                "tags": [
-                    "Database"
-                ],
-                "summary": "Get databases",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/dto.DatabaseInfo"
-                        }
-                    }
-                }
-            }
-        },
         "/databases/db/check": {
             "post": {
                 "security": [
@@ -4630,7 +4616,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/databases/db/item/:type": {
+        "/databases/db/item/{type}": {
             "get": {
                 "security": [
                     {
@@ -4644,6 +4630,15 @@ const docTemplate = `{
                     "Database"
                 ],
                 "summary": "Retrieve database list based on type",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "type",
+                        "name": "type",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -4657,7 +4652,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/databases/db/list/:type": {
+        "/databases/db/list/{type}": {
             "get": {
                 "security": [
                     {
@@ -4671,6 +4666,15 @@ const docTemplate = `{
                     "Database"
                 ],
                 "summary": "List databases",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "type",
+                        "name": "type",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -4763,6 +4767,39 @@ const docTemplate = `{
                     "formatEN": "update database [name]",
                     "formatZH": "更新远程数据库 [name]",
                     "paramKeys": []
+                }
+            }
+        },
+        "/databases/db/{name}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Timestamp": []
+                    }
+                ],
+                "tags": [
+                    "Database"
+                ],
+                "summary": "Get databases",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.DatabaseInfo"
+                        }
+                    }
                 }
             }
         },
@@ -4942,7 +4979,11 @@ const docTemplate = `{
                         }
                     }
                 ],
-                "responses": {}
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
             }
         },
         "/databases/options": {
@@ -5028,37 +5069,6 @@ const docTemplate = `{
                     "formatZH": "创建 postgresql 数据库 [name]",
                     "paramKeys": []
                 }
-            }
-        },
-        "/databases/pg/:database/load": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    },
-                    {
-                        "Timestamp": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Database Postgresql"
-                ],
-                "summary": "Load postgresql database from remote",
-                "parameters": [
-                    {
-                        "description": "request",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.PostgresqlLoadDB"
-                        }
-                    }
-                ],
-                "responses": {}
             }
         },
         "/databases/pg/bind": {
@@ -5386,6 +5396,48 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/dto.PageResult"
                         }
+                    }
+                }
+            }
+        },
+        "/databases/pg/{database}/load": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Timestamp": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Database Postgresql"
+                ],
+                "summary": "Load postgresql database from remote",
+                "parameters": [
+                    {
+                        "description": "request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.PostgresqlLoadDB"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "database",
+                        "name": "database",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
                     }
                 }
             }
@@ -6109,6 +6161,9 @@ const docTemplate = `{
                     {
                         "Timestamp": []
                     }
+                ],
+                "consumes": [
+                    "multipart/form-data"
                 ],
                 "tags": [
                     "File"
@@ -6989,6 +7044,9 @@ const docTemplate = `{
                         "Timestamp": []
                     }
                 ],
+                "consumes": [
+                    "multipart/form-data"
+                ],
                 "tags": [
                     "File"
                 ],
@@ -7468,7 +7526,11 @@ const docTemplate = `{
                         }
                     }
                 ],
-                "responses": {},
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                },
                 "x-panel-log": {
                     "BeforeFunctions": [],
                     "bodyKeys": [
@@ -8080,7 +8142,10 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "Array"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dto.RedisCommand"
+                            }
                         }
                     }
                 }
@@ -8279,7 +8344,10 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "Array"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dto.CommandTree"
+                            }
                         }
                     }
                 }
@@ -8866,7 +8934,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/hosts/test/byid/:id": {
+        "/hosts/test/byid/{id}": {
             "post": {
                 "security": [
                     {
@@ -9539,39 +9607,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/runtimes/:id": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    },
-                    {
-                        "Timestamp": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Runtime"
-                ],
-                "summary": "Get runtime",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "request",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                }
-            }
-        },
         "/runtimes/del": {
             "post": {
                 "security": [
@@ -10011,6 +10046,39 @@ const docTemplate = `{
                     "formatEN": "Update runtime [name]",
                     "formatZH": "更新运行环境 [name]",
                     "paramKeys": []
+                }
+            }
+        },
+        "/runtimes/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Timestamp": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Runtime"
+                ],
+                "summary": "Get runtime",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "request",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
                 }
             }
         },
@@ -12027,7 +12095,11 @@ const docTemplate = `{
                         }
                     }
                 ],
-                "responses": {},
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                },
                 "x-panel-log": {
                     "BeforeFunctions": [],
                     "bodyKeys": [
@@ -12067,7 +12139,11 @@ const docTemplate = `{
                         }
                     }
                 ],
-                "responses": {},
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                },
                 "x-panel-log": {
                     "BeforeFunctions": [
                         {
@@ -12649,7 +12725,10 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "Array"
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
                         }
                     }
                 }
@@ -12731,7 +12810,11 @@ const docTemplate = `{
                         }
                     }
                 ],
-                "responses": {},
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                },
                 "x-panel-log": {
                     "BeforeFunctions": [],
                     "bodyKeys": [
@@ -12771,7 +12854,11 @@ const docTemplate = `{
                         }
                     }
                 ],
-                "responses": {}
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
             }
         },
         "/toolbox/fail2ban/search": {
@@ -12806,7 +12893,10 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "Array"
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
                         }
                     }
                 }
@@ -13080,7 +13170,11 @@ const docTemplate = `{
                         }
                     }
                 ],
-                "responses": {},
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                },
                 "x-panel-log": {
                     "BeforeFunctions": [],
                     "bodyKeys": [
@@ -13285,168 +13379,6 @@ const docTemplate = `{
                     ],
                     "formatEN": "Create website [primaryDomain]",
                     "formatZH": "创建网站 [primaryDomain]",
-                    "paramKeys": []
-                }
-            }
-        },
-        "/websites/:id": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    },
-                    {
-                        "Timestamp": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Website"
-                ],
-                "summary": "Search website by id",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "request",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/response.WebsiteDTO"
-                        }
-                    }
-                }
-            }
-        },
-        "/websites/:id/config/:type": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    },
-                    {
-                        "Timestamp": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Website Nginx"
-                ],
-                "summary": "Search website nginx by id",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "request",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/response.FileInfo"
-                        }
-                    }
-                }
-            }
-        },
-        "/websites/:id/https": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    },
-                    {
-                        "Timestamp": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Website HTTPS"
-                ],
-                "summary": "Load https conf",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "request",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/response.WebsiteHTTPS"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    },
-                    {
-                        "Timestamp": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Website HTTPS"
-                ],
-                "summary": "Update https conf",
-                "parameters": [
-                    {
-                        "description": "request",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.WebsiteHTTPSOp"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/response.WebsiteHTTPS"
-                        }
-                    }
-                },
-                "x-panel-log": {
-                    "BeforeFunctions": [
-                        {
-                            "db": "websites",
-                            "input_column": "id",
-                            "input_value": "websiteId",
-                            "isList": false,
-                            "output_column": "primary_domain",
-                            "output_value": "domain"
-                        }
-                    ],
-                    "bodyKeys": [
-                        "websiteId"
-                    ],
-                    "formatEN": "Update website https [domain] conf",
-                    "formatZH": "更新网站 [domain] https 配置",
                     "paramKeys": []
                 }
             }
@@ -14124,33 +14056,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/websites/default/html/:type": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    },
-                    {
-                        "Timestamp": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Website"
-                ],
-                "summary": "Get default html",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/response.FileInfo"
-                        }
-                    }
-                }
-            }
-        },
         "/websites/default/html/update": {
             "post": {
                 "security": [
@@ -14192,6 +14097,42 @@ const docTemplate = `{
                     "formatEN": "Update default html",
                     "formatZH": "更新默认 html",
                     "paramKeys": []
+                }
+            }
+        },
+        "/websites/default/html/{type}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Timestamp": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Website"
+                ],
+                "summary": "Get default html",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "type",
+                        "name": "type",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.FileInfo"
+                        }
+                    }
                 }
             }
         },
@@ -14669,45 +14610,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/websites/domains/:websiteId": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    },
-                    {
-                        "Timestamp": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Website Domain"
-                ],
-                "summary": "Search website domains by websiteId",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "request",
-                        "name": "websiteId",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/model.WebsiteDomain"
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/websites/domains/del": {
             "post": {
                 "security": [
@@ -14758,6 +14660,45 @@ const docTemplate = `{
                     "formatEN": "Delete domain [domain]",
                     "formatZH": "删除域名 [domain]",
                     "paramKeys": []
+                }
+            }
+        },
+        "/websites/domains/{websiteId}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Timestamp": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Website Domain"
+                ],
+                "summary": "Search website domains by websiteId",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "request",
+                        "name": "websiteId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.WebsiteDomain"
+                            }
+                        }
+                    }
                 }
             }
         },
@@ -15102,7 +15043,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/websites/php/config/:id": {
+        "/websites/php/config/{id}": {
             "get": {
                 "security": [
                     {
@@ -15699,39 +15640,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/websites/ssl/:id": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    },
-                    {
-                        "Timestamp": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Website SSL"
-                ],
-                "summary": "Search website ssl by id",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "request",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                }
-            }
-        },
         "/websites/ssl/del": {
             "post": {
                 "security": [
@@ -16064,7 +15972,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/websites/ssl/website/:websiteId": {
+        "/websites/ssl/website/{websiteId}": {
             "get": {
                 "security": [
                     {
@@ -16086,6 +15994,39 @@ const docTemplate = `{
                         "type": "integer",
                         "description": "request",
                         "name": "websiteId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/websites/ssl/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Timestamp": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Website SSL"
+                ],
+                "summary": "Search website ssl by id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "request",
+                        "name": "id",
                         "in": "path",
                         "required": true
                     }
@@ -16140,6 +16081,182 @@ const docTemplate = `{
                     "paramKeys": []
                 }
             }
+        },
+        "/websites/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Timestamp": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Website"
+                ],
+                "summary": "Search website by id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "request",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.WebsiteDTO"
+                        }
+                    }
+                }
+            }
+        },
+        "/websites/{id}/config/{type}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Timestamp": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Website Nginx"
+                ],
+                "summary": "Search website nginx by id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "request",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "type",
+                        "name": "type",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.FileInfo"
+                        }
+                    }
+                }
+            }
+        },
+        "/websites/{id}/https": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Timestamp": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Website HTTPS"
+                ],
+                "summary": "Load https conf",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "request",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.WebsiteHTTPS"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Timestamp": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Website HTTPS"
+                ],
+                "summary": "Update https conf",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "request",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.WebsiteHTTPSOp"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.WebsiteHTTPS"
+                        }
+                    }
+                },
+                "x-panel-log": {
+                    "BeforeFunctions": [
+                        {
+                            "db": "websites",
+                            "input_column": "id",
+                            "input_value": "websiteId",
+                            "isList": false,
+                            "output_column": "primary_domain",
+                            "output_value": "domain"
+                        }
+                    ],
+                    "bodyKeys": [
+                        "websiteId"
+                    ],
+                    "formatEN": "Update website https [domain] conf",
+                    "formatZH": "更新网站 [domain] https 配置",
+                    "paramKeys": []
+                }
+            }
         }
     },
     "definitions": {
@@ -16191,6 +16308,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "apiKey": {
+                    "type": "string"
+                },
+                "apiKeyValidityTime": {
                     "type": "string"
                 },
                 "ipWhiteList": {
@@ -16720,6 +16840,23 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.CommandTree": {
+            "type": "object",
+            "properties": {
+                "children": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.CommandInfo"
+                    }
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "label": {
                     "type": "string"
                 }
             }
@@ -18170,8 +18307,7 @@ const docTemplate = `{
                         "findtime",
                         "maxretry",
                         "banaction",
-                        "logpath",
-                        "port"
+                        "logpath"
                     ]
                 },
                 "value": {
@@ -18856,7 +18992,8 @@ const docTemplate = `{
                     "enum": [
                         "zh",
                         "en",
-                        "tw"
+                        "tw",
+                        "ru"
                     ]
                 },
                 "name": {
@@ -20541,6 +20678,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "apiKey": {
+                    "type": "string"
+                },
+                "apiKeyValidityTime": {
                     "type": "string"
                 },
                 "appStoreLastModified": {
@@ -24558,7 +24698,7 @@ const docTemplate = `{
             "description": "Custom Token Format, Format: md5('1panel' + API-Key + UnixTimestamp).\n` + "`" + `` + "`" + `` + "`" + `\neg:\ncurl -X GET \"http://localhost:4004/api/v1/resource\" \\\n-H \"1Panel-Token: \u003c1panel_token\u003e\" \\\n-H \"1Panel-Timestamp: \u003ccurrent_unix_timestamp\u003e\"\n` + "`" + `` + "`" + `` + "`" + `\n- ` + "`" + `1Panel-Token` + "`" + ` is the key for the panel API Key.",
             "type": "apiKey",
             "name": "1Panel-Token",
-            "in": "Header"
+            "in": "header"
         },
         "Timestamp": {
             "description": "- ` + "`" + `1Panel-Timestamp` + "`" + ` is the Unix timestamp of the current time in seconds.",

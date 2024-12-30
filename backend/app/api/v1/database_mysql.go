@@ -217,6 +217,7 @@ func (b *BaseApi) ListDBName(c *gin.Context) {
 // @Summary Load mysql database from remote
 // @Accept json
 // @Param request body dto.MysqlLoadDB true "request"
+// @Success 200
 // @Security ApiKeyAuth
 // @Security Timestamp
 // @Router /databases/load [post]

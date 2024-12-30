@@ -118,7 +118,7 @@ func (b *BaseApi) UpdateRuntime(c *gin.Context) {
 // @Success 200
 // @Security ApiKeyAuth
 // @Security Timestamp
-// @Router /runtimes/:id [get]
+// @Router /runtimes/{id} [get]
 func (b *BaseApi) GetRuntime(c *gin.Context) {
 	id, err := helper.GetIntParamByKey(c, "id")
 	if err != nil {

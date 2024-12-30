@@ -26,6 +26,7 @@ func (b *BaseApi) GetSSHInfo(c *gin.Context) {
 // @Summary Operate SSH
 // @Accept json
 // @Param request body dto.Operate true "request"
+// @Success 200
 // @Security ApiKeyAuth
 // @Security Timestamp
 // @Router /host/ssh/operate [post]

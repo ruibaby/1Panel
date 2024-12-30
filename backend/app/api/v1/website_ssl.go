@@ -138,7 +138,7 @@ func (b *BaseApi) DeleteWebsiteSSL(c *gin.Context) {
 // @Success 200
 // @Security ApiKeyAuth
 // @Security Timestamp
-// @Router /websites/ssl/website/:websiteId [get]
+// @Router /websites/ssl/website/{websiteId} [get]
 func (b *BaseApi) GetWebsiteSSLByWebsiteId(c *gin.Context) {
 	websiteId, err := helper.GetIntParamByKey(c, "websiteId")
 	if err != nil {
@@ -160,7 +160,7 @@ func (b *BaseApi) GetWebsiteSSLByWebsiteId(c *gin.Context) {
 // @Success 200
 // @Security ApiKeyAuth
 // @Security Timestamp
-// @Router /websites/ssl/:id [get]
+// @Router /websites/ssl/{id} [get]
 func (b *BaseApi) GetWebsiteSSLById(c *gin.Context) {
 	id, err := helper.GetParamID(c)
 	if err != nil {

@@ -57,7 +57,7 @@ func (b *BaseApi) CreateWebDomain(c *gin.Context) {
 // @Success 200 {array} model.WebsiteDomain
 // @Security ApiKeyAuth
 // @Security Timestamp
-// @Router /websites/domains/:websiteId [get]
+// @Router /websites/domains/{websiteId} [get]
 func (b *BaseApi) GetWebDomains(c *gin.Context) {
 	websiteId, err := helper.GetIntParamByKey(c, "websiteId")
 	if err != nil {

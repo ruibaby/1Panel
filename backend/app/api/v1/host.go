@@ -56,7 +56,7 @@ func (b *BaseApi) TestByInfo(c *gin.Context) {
 // @Success 200 {boolean} connStatus
 // @Security ApiKeyAuth
 // @Security Timestamp
-// @Router /hosts/test/byid/:id [post]
+// @Router /hosts/test/byid/{id} [post]
 func (b *BaseApi) TestByID(c *gin.Context) {
 	id, err := helper.GetParamID(c)
 	if err != nil {

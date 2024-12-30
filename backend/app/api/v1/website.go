@@ -166,7 +166,7 @@ func (b *BaseApi) UpdateWebsite(c *gin.Context) {
 // @Success 200 {object} response.WebsiteDTO
 // @Security ApiKeyAuth
 // @Security Timestamp
-// @Router /websites/:id [get]
+// @Router /websites/{id} [get]
 func (b *BaseApi) GetWebsite(c *gin.Context) {
 	id, err := helper.GetParamID(c)
 	if err != nil {
@@ -185,10 +185,11 @@ func (b *BaseApi) GetWebsite(c *gin.Context) {
 // @Summary Search website nginx by id
 // @Accept json
 // @Param id path integer true "request"
+// @Param type path string true "type"
 // @Success 200 {object} response.FileInfo
 // @Security ApiKeyAuth
 // @Security Timestamp
-// @Router /websites/:id/config/:type [get]
+// @Router /websites/{id}/config/{type} [get]
 func (b *BaseApi) GetWebsiteNginx(c *gin.Context) {
 	id, err := helper.GetParamID(c)
 	if err != nil {
@@ -254,7 +255,7 @@ func (b *BaseApi) UpdateNginxConfig(c *gin.Context) {
 // @Success 200 {object} response.WebsiteHTTPS
 // @Security ApiKeyAuth
 // @Security Timestamp
-// @Router /websites/:id/https [get]
+// @Router /websites/{id}/https [get]
 func (b *BaseApi) GetHTTPSConfig(c *gin.Context) {
 	id, err := helper.GetParamID(c)
 	if err != nil {
@@ -272,11 +273,12 @@ func (b *BaseApi) GetHTTPSConfig(c *gin.Context) {
 // @Tags Website HTTPS
 // @Summary Update https conf
 // @Accept json
+// @Param id path integer true "request"
 // @Param request body request.WebsiteHTTPSOp true "request"
 // @Success 200 {object} response.WebsiteHTTPS
 // @Security ApiKeyAuth
 // @Security Timestamp
-// @Router /websites/:id/https [post]
+// @Router /websites/{id}/https [post]
 // @x-panel-log {"bodyKeys":["websiteId"],"paramKeys":[],"BeforeFunctions":[{"input_column":"id","input_value":"websiteId","isList":false,"db":"websites","output_column":"primary_domain","output_value":"domain"}],"formatZH":"更新网站 [domain] https 配置","formatEN":"Update website https [domain] conf"}
 func (b *BaseApi) UpdateHTTPSConfig(c *gin.Context) {
 	var req request.WebsiteHTTPSOp
@@ -386,7 +388,7 @@ func (b *BaseApi) ChangeDefaultServer(c *gin.Context) {
 // @Success 200 {object} response.PHPConfig
 // @Security ApiKeyAuth
 // @Security Timestamp
-// @Router /websites/php/config/:id [get]
+// @Router /websites/php/config/{id} [get]
 func (b *BaseApi) GetWebsitePHPConfig(c *gin.Context) {
 	id, err := helper.GetParamID(c)
 	if err != nil {
@@ -782,10 +784,11 @@ func (b *BaseApi) GetDirConfig(c *gin.Context) {
 // @Tags Website
 // @Summary Get default html
 // @Accept json
+// @Param type path string true "type"
 // @Success 200 {object} response.FileInfo
 // @Security ApiKeyAuth
 // @Security Timestamp
-// @Router /websites/default/html/:type [get]
+// @Router /websites/default/html/{type} [get]
 func (b *BaseApi) GetDefaultHtml(c *gin.Context) {
 	resourceType, err := helper.GetStrParamByKey(c, "type")
 	if err != nil {

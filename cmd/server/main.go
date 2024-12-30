@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"os"
 
+	_ "net/http/pprof"
+
 	"github.com/1Panel-dev/1Panel/cmd/server/cmd"
 	_ "github.com/1Panel-dev/1Panel/cmd/server/docs"
-	_ "net/http/pprof"
 )
 
 // @title 1Panel
@@ -28,7 +29,7 @@ import (
 // @description ```
 // @description - `1Panel-Token` is the key for the panel API Key.
 // @type apiKey
-// @in Header
+// @in header
 // @name 1Panel-Token
 
 // @securityDefinitions.apikey Timestamp

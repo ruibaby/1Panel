@@ -120,6 +120,7 @@ func (b *BaseApi) LoadClamBaseInfo(c *gin.Context) {
 // @Summary Operate Clam
 // @Accept json
 // @Param request body dto.Operate true "request"
+// @Success 200
 // @Security ApiKeyAuth
 // @Security Timestamp
 // @Router /toolbox/clam/operate [post]
@@ -142,6 +143,7 @@ func (b *BaseApi) OperateClam(c *gin.Context) {
 // @Summary Clean clam record
 // @Accept json
 // @Param request body dto.OperateByID true "request"
+// @Success 200
 // @Security ApiKeyAuth
 // @Security Timestamp
 // @Router /toolbox/clam/record/clean [post]

@@ -290,6 +290,7 @@ func (b *BaseApi) SaveContent(c *gin.Context) {
 
 // @Tags File
 // @Summary Upload file
+// @Accept multipart/form-data
 // @Param file formData file true "request"
 // @Success 200
 // @Security ApiKeyAuth
@@ -662,6 +663,7 @@ func mergeChunks(fileName string, fileDir string, dstDir string, chunkCount int,
 
 // @Tags File
 // @Summary Chunk upload file
+// @Accept multipart/form-data
 // @Param file formData file true "request"
 // @Success 200
 // @Security ApiKeyAuth

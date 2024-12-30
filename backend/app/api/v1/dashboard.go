@@ -34,7 +34,7 @@ func (b *BaseApi) LoadDashboardOsInfo(c *gin.Context) {
 // @Success 200 {object} dto.DashboardBase
 // @Security ApiKeyAuth
 // @Security Timestamp
-// @Router /dashboard/base/:ioOption/:netOption [get]
+// @Router /dashboard/base/{ioOption}/{netOption} [get]
 func (b *BaseApi) LoadDashboardBaseInfo(c *gin.Context) {
 	ioOption, ok := c.Params.Get("ioOption")
 	if !ok {
@@ -78,7 +78,7 @@ func (b *BaseApi) LoadDashboardCurrentInfo(c *gin.Context) {
 // @Success 200
 // @Security ApiKeyAuth
 // @Security Timestamp
-// @Router /dashboard/system/restart/:operation [post]
+// @Router /dashboard/system/restart/{operation} [post]
 func (b *BaseApi) SystemRestart(c *gin.Context) {
 	operation, ok := c.Params.Get("operation")
 	if !ok {

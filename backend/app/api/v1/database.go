@@ -93,10 +93,11 @@ func (b *BaseApi) SearchDatabase(c *gin.Context) {
 
 // @Tags Database
 // @Summary List databases
+// @Param type path string true "type"
 // @Success 200 {array} dto.DatabaseOption
 // @Security ApiKeyAuth
 // @Security Timestamp
-// @Router /databases/db/list/:type [get]
+// @Router /databases/db/list/{type} [get]
 func (b *BaseApi) ListDatabase(c *gin.Context) {
 	dbType, err := helper.GetStrParamByKey(c, "type")
 	if err != nil {
@@ -114,10 +115,11 @@ func (b *BaseApi) ListDatabase(c *gin.Context) {
 
 // @Tags Database
 // @Summary Retrieve database list based on type
+// @Param type path string true "type"
 // @Success 200 {array} dto.DatabaseItem
 // @Security ApiKeyAuth
 // @Security Timestamp
-// @Router /databases/db/item/:type [get]
+// @Router /databases/db/item/{type} [get]
 func (b *BaseApi) LoadDatabaseItems(c *gin.Context) {
 	dbType, err := helper.GetStrParamByKey(c, "type")
 	if err != nil {
@@ -135,10 +137,11 @@ func (b *BaseApi) LoadDatabaseItems(c *gin.Context) {
 
 // @Tags Database
 // @Summary Get databases
+// @Param name path string true "name"
 // @Success 200 {object} dto.DatabaseInfo
 // @Security ApiKeyAuth
 // @Security Timestamp
-// @Router /databases/db/:name [get]
+// @Router /databases/db/{name} [get]
 func (b *BaseApi) GetDatabase(c *gin.Context) {
 	name, err := helper.GetStrParamByKey(c, "name")
 	if err != nil {

@@ -34,6 +34,8 @@ definitions:
         type: string
       apiKey:
         type: string
+      apiKeyValidityTime:
+        type: string
       ipWhiteList:
         type: string
     type: object
@@ -383,6 +385,17 @@ definitions:
     required:
     - command
     - name
+    type: object
+  dto.CommandTree:
+    properties:
+      children:
+        items:
+          $ref: '#/definitions/dto.CommandInfo'
+        type: array
+      id:
+        type: integer
+      label:
+        type: string
     type: object
   dto.CommonBackup:
     properties:
@@ -1362,7 +1375,6 @@ definitions:
         - maxretry
         - banaction
         - logpath
-        - port
         type: string
       value:
         type: string
@@ -1822,6 +1834,7 @@ definitions:
         - zh
         - en
         - tw
+        - ru
         type: string
       name:
         type: string
@@ -2976,6 +2989,8 @@ definitions:
       apiInterfaceStatus:
         type: string
       apiKey:
+        type: string
+      apiKeyValidityTime:
         type: string
       appStoreLastModified:
         type: string
@@ -5662,7 +5677,7 @@ info:
   title: 1Panel
   version: "1.0"
 paths:
-  /apps/:key:
+  /apps/{key}:
     get:
       consumes:
       - application/json
@@ -5694,7 +5709,7 @@ paths:
       summary: Get app list update
       tags:
       - App
-  /apps/detail/:appId/:version/:type:
+  /apps/detail/{appId}/{version}/{type}:
     get:
       consumes:
       - application/json
@@ -5711,7 +5726,7 @@ paths:
         type: string
       - description: app type
         in: path
-        name: version
+        name: type
         required: true
         type: string
       responses:
@@ -5725,14 +5740,14 @@ paths:
       summary: Search app detail by appid
       tags:
       - App
-  /apps/details/:id:
+  /apps/details/{id}:
     get:
       consumes:
       - application/json
       parameters:
       - description: id
         in: path
-        name: appId
+        name: id
         required: true
         type: integer
       responses:
@@ -5834,7 +5849,7 @@ paths:
       summary: Search default config by key
       tags:
       - App
-  /apps/installed/conninfo/:key:
+  /apps/installed/conninfo/{key}:
     get:
       consumes:
       - application/json
@@ -5845,6 +5860,11 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/dto.OperationWithNameAndType'
+      - description: key
+        in: path
+        name: key
+        required: true
+        type: string
       responses:
         "200":
           description: OK
@@ -5856,7 +5876,7 @@ paths:
       summary: Search app password by key
       tags:
       - App
-  /apps/installed/delete/check/:appInstallId:
+  /apps/installed/delete/check/{appInstallId}:
     get:
       consumes:
       - application/json
@@ -5991,7 +6011,7 @@ paths:
         formatEN: '[operate] App [appKey][appName]'
         formatZH: '[operate] 应用 [appKey][appName]'
         paramKeys: []
-  /apps/installed/params/:appInstallId:
+  /apps/installed/params/{appInstallId}:
     get:
       consumes:
       - application/json
@@ -6109,12 +6129,6 @@ paths:
     post:
       consumes:
       - application/json
-      parameters:
-      - description: request
-        in: path
-        name: appInstallId
-        required: true
-        type: integer
       responses:
         "200":
           description: OK
@@ -6148,7 +6162,7 @@ paths:
       summary: List apps
       tags:
       - App
-  /apps/services/:key:
+  /apps/services/{key}:
     get:
       consumes:
       - application/json
@@ -6447,7 +6461,9 @@ paths:
         in: query
         name: tail
         type: string
-      responses: {}
+      responses:
+        "200":
+          description: OK
       security:
       - ApiKeyAuth: []
       - Timestamp: []
@@ -6645,7 +6661,9 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/dto.ContainerLog'
-      responses: {}
+      responses:
+        "200":
+          description: OK
       security:
       - ApiKeyAuth: []
       - Timestamp: []
@@ -7469,14 +7487,16 @@ paths:
         in: query
         name: tail
         type: string
-      responses: {}
+      responses:
+        "200":
+          description: OK
       security:
       - ApiKeyAuth: []
       - Timestamp: []
       summary: Container logs
       tags:
       - Container
-  /containers/stats/:id:
+  /containers/stats/{id}:
     get:
       parameters:
       - description: container id
@@ -8071,7 +8091,7 @@ paths:
         formatEN: update cronjob [name]
         formatZH: 更新计划任务 [name]
         paramKeys: []
-  /dashboard/base/:ioOption/:netOption:
+  /dashboard/base/{ioOption}/{netOption}:
     get:
       consumes:
       - application/json
@@ -8134,7 +8154,7 @@ paths:
       summary: Load dashboard current info
       tags:
       - Dashboard
-  /dashboard/system/restart/:operation:
+  /dashboard/system/restart/{operation}:
     post:
       consumes:
       - application/json
@@ -8372,8 +8392,14 @@ paths:
         formatEN: create database [name][type]
         formatZH: 创建远程数据库 [name][type]
         paramKeys: []
-  /databases/db/:name:
+  /databases/db/{name}:
     get:
+      parameters:
+      - description: name
+        in: path
+        name: name
+        required: true
+        type: string
       responses:
         "200":
           description: OK
@@ -8446,8 +8472,14 @@ paths:
         formatEN: delete database [names]
         formatZH: 删除远程数据库 [names]
         paramKeys: []
-  /databases/db/item/:type:
+  /databases/db/item/{type}:
     get:
+      parameters:
+      - description: type
+        in: path
+        name: type
+        required: true
+        type: string
       responses:
         "200":
           description: OK
@@ -8461,8 +8493,14 @@ paths:
       summary: Retrieve database list based on type
       tags:
       - Database
-  /databases/db/list/:type:
+  /databases/db/list/{type}:
     get:
+      parameters:
+      - description: type
+        in: path
+        name: type
+        required: true
+        type: string
       responses:
         "200":
           description: OK
@@ -8627,7 +8665,9 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/dto.MysqlLoadDB'
-      responses: {}
+      responses:
+        "200":
+          description: OK
       security:
       - ApiKeyAuth: []
       - Timestamp: []
@@ -8685,7 +8725,7 @@ paths:
         formatEN: create postgresql database [name]
         formatZH: 创建 postgresql 数据库 [name]
         paramKeys: []
-  /databases/pg/:database/load:
+  /databases/pg/{database}/load:
     post:
       consumes:
       - application/json
@@ -8696,7 +8736,14 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/dto.PostgresqlLoadDB'
-      responses: {}
+      - description: database
+        in: path
+        name: database
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
       security:
       - ApiKeyAuth: []
       - Timestamp: []
@@ -9332,6 +9379,8 @@ paths:
         paramKeys: []
   /files/chunkupload:
     post:
+      consumes:
+      - multipart/form-data
       parameters:
       - description: request
         in: formData
@@ -9862,6 +9911,8 @@ paths:
       - File
   /files/upload:
     post:
+      consumes:
+      - multipart/form-data
       parameters:
       - description: request
         in: formData
@@ -10152,7 +10203,9 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/dto.Operate'
-      responses: {}
+      responses:
+        "200":
+          description: OK
       security:
       - ApiKeyAuth: []
       - Timestamp: []
@@ -10522,7 +10575,9 @@ paths:
         "200":
           description: OK
           schema:
-            type: Array
+            items:
+              $ref: '#/definitions/dto.RedisCommand'
+            type: array
       security:
       - ApiKeyAuth: []
       - Timestamp: []
@@ -10641,7 +10696,9 @@ paths:
         "200":
           description: OK
           schema:
-            type: Array
+            items:
+              $ref: '#/definitions/dto.CommandTree'
+            type: array
       security:
       - ApiKeyAuth: []
       - Timestamp: []
@@ -10892,7 +10949,7 @@ paths:
       security:
       - ApiKeyAuth: []
       - Timestamp: []
-      summary: Uodate address group
+      summary: Update address group
       tags:
       - Firewall
   /hosts/firewall/update/description:
@@ -10994,7 +11051,7 @@ paths:
       summary: Page host
       tags:
       - Host
-  /hosts/test/byid/:id:
+  /hosts/test/byid/{id}:
     post:
       consumes:
       - application/json
@@ -11394,7 +11451,7 @@ paths:
         formatEN: Create runtime [name]
         formatZH: 创建运行环境 [name]
         paramKeys: []
-  /runtimes/:id:
+  /runtimes/{id}:
     get:
       consumes:
       - application/json
@@ -12879,7 +12936,9 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/dto.Operate'
-      responses: {}
+      responses:
+        "200":
+          description: OK
       security:
       - ApiKeyAuth: []
       - Timestamp: []
@@ -12904,7 +12963,9 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/dto.OperateByID'
-      responses: {}
+      responses:
+        "200":
+          description: OK
       security:
       - ApiKeyAuth: []
       - Timestamp: []
@@ -13254,7 +13315,9 @@ paths:
         "200":
           description: OK
           schema:
-            type: Array
+            items:
+              type: string
+            type: array
       security:
       - ApiKeyAuth: []
       - Timestamp: []
@@ -13298,7 +13361,9 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/dto.Operate'
-      responses: {}
+      responses:
+        "200":
+          description: OK
       security:
       - ApiKeyAuth: []
       - Timestamp: []
@@ -13323,7 +13388,9 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/dto.Operate'
-      responses: {}
+      responses:
+        "200":
+          description: OK
       security:
       - ApiKeyAuth: []
       - Timestamp: []
@@ -13345,7 +13412,9 @@ paths:
         "200":
           description: OK
           schema:
-            type: Array
+            items:
+              type: string
+            type: array
       security:
       - ApiKeyAuth: []
       - Timestamp: []
@@ -13507,7 +13576,9 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/dto.Operate'
-      responses: {}
+      responses:
+        "200":
+          description: OK
       security:
       - ApiKeyAuth: []
       - Timestamp: []
@@ -13641,7 +13712,7 @@ paths:
         formatEN: Create website [primaryDomain]
         formatZH: 创建网站 [primaryDomain]
         paramKeys: []
-  /websites/:id:
+  /websites/{id}:
     get:
       consumes:
       - application/json
@@ -13662,7 +13733,7 @@ paths:
       summary: Search website by id
       tags:
       - Website
-  /websites/:id/config/:type:
+  /websites/{id}/config/{type}:
     get:
       consumes:
       - application/json
@@ -13672,6 +13743,11 @@ paths:
         name: id
         required: true
         type: integer
+      - description: type
+        in: path
+        name: type
+        required: true
+        type: string
       responses:
         "200":
           description: OK
@@ -13683,7 +13759,7 @@ paths:
       summary: Search website nginx by id
       tags:
       - Website Nginx
-  /websites/:id/https:
+  /websites/{id}/https:
     get:
       consumes:
       - application/json
@@ -13708,6 +13784,11 @@ paths:
       consumes:
       - application/json
       parameters:
+      - description: request
+        in: path
+        name: id
+        required: true
+        type: integer
       - description: request
         in: body
         name: request
@@ -14145,10 +14226,16 @@ paths:
         formatEN: Nginx conf update [domain]
         formatZH: nginx 配置修改 [domain]
         paramKeys: []
-  /websites/default/html/:type:
+  /websites/default/html/{type}:
     get:
       consumes:
       - application/json
+      parameters:
+      - description: type
+        in: path
+        name: type
+        required: true
+        type: string
       responses:
         "200":
           description: OK
@@ -14478,7 +14565,7 @@ paths:
         formatEN: Create domain [domain]
         formatZH: 创建域名 [domain]
         paramKeys: []
-  /websites/domains/:websiteId:
+  /websites/domains/{websiteId}:
     get:
       consumes:
       - application/json
@@ -14740,7 +14827,7 @@ paths:
         formatEN: '[domain] PHP conf update'
         formatZH: '[domain] PHP 配置修改'
         paramKeys: []
-  /websites/php/config/:id:
+  /websites/php/config/{id}:
     get:
       consumes:
       - application/json
@@ -15103,7 +15190,7 @@ paths:
         formatEN: Create website ssl [primaryDomain]
         formatZH: 创建网站 ssl [primaryDomain]
         paramKeys: []
-  /websites/ssl/:id:
+  /websites/ssl/{id}:
     get:
       consumes:
       - application/json
@@ -15325,7 +15412,7 @@ paths:
         formatEN: Upload ssl [type]
         formatZH: 上传 ssl [type]
         paramKeys: []
-  /websites/ssl/website/:websiteId:
+  /websites/ssl/website/{websiteId}:
     get:
       consumes:
       - application/json
@@ -15385,7 +15472,7 @@ securityDefinitions:
       -H "1Panel-Timestamp: <current_unix_timestamp>"
       ```
       - `1Panel-Token` is the key for the panel API Key.
-    in: Header
+    in: header
     name: 1Panel-Token
     type: apiKey
   Timestamp:

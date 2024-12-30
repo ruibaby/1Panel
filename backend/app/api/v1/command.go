@@ -106,7 +106,7 @@ func (b *BaseApi) SearchRedisCommand(c *gin.Context) {
 // @Tags Command
 // @Summary Tree commands
 // @Accept json
-// @Success 200 {Array} dto.CommandTree
+// @Success 200 {array} dto.CommandTree
 // @Security ApiKeyAuth
 // @Security Timestamp
 // @Router /hosts/command/tree [get]
@@ -122,7 +122,7 @@ func (b *BaseApi) SearchCommandTree(c *gin.Context) {
 
 // @Tags Redis Command
 // @Summary List redis commands
-// @Success 200 {Array} dto.RedisCommand
+// @Success 200 {array} dto.RedisCommand
 // @Security ApiKeyAuth
 // @Security Timestamp
 // @Router /hosts/command/redis [get]
